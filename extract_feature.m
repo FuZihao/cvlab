@@ -1,0 +1,19 @@
+[hog0, visualization0] = extractHOGFeatures(i03,'CellSize',[88 88],...
+                                                'BlockSize',[1 1],...
+                                                'NumBins',18,...
+                                                'UseSignedOrientation',true);
+figure(1);
+subplot(1,2,1);
+imshow(i03);
+subplot(1,2,2);
+plot(visualization0);
+
+[hog2, visualization2] = extractHOGFeatures(i23,'CellSize',[88 88],...
+                                                'BlockSize',[1 1],...
+                                                'NumBins',18,...
+                                                'UseSignedOrientation',true);
+figure(2);
+subplot(1,2,1);
+imshow(i23);
+subplot(1,2,2);
+plot(visualization2);
