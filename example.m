@@ -63,7 +63,7 @@
 % rectangle('Position',[100,300,70,50],'Curvature',[0,0],'LineWidth',2,'LineStyle','--','EdgeColor','r');
 % hold off;
 
-I2 = imread('./data/archery/archery-01.jpg');
+I2 = imread('./data/boxing/boxing-01.jpg');
 corners   = detectFASTFeatures(rgb2gray(I2));
 strongest = selectStrongest(corners,3);
 [hog2, validPoints, ptVis] = extractHOGFeatures(I2,corners);
