@@ -34,6 +34,13 @@ end
 
 x = xmin;
 y = ymin;
-w = xmax - xmin;
-h = ymax -ymin;
+w = xmax - xmin + 1;
+h = ymax -ymin + 1;
+tmp = h;
+if h < w
+    h = floor(w*447/430);
+else
+    w = floor(h*430/447);
+end
+y = y - floor((h-tmp + 1)/2);
 position = [x y w h];
