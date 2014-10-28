@@ -51,19 +51,16 @@ img_k3 = impyramid(img_k2, 'reduce');
 % imshow(img_k);
 % figure, imshow(img_k1);
 % figure, imshow(img_k2);
-figure, imshow(img_k1); % 62 60
-hold on;
-% position1 = [0 0 30 62];
+% figure, imshow(img_k3); % 62 60
+% hold on;
+% position1 = [1 1 48 25];
 % rectangle('Position',position1,'LineWidth',1,'EdgeColor','r');
-% position2 = [31 1 30 61];
+% position2 = [1 26 48 25];
 % rectangle('Position',position2,'LineWidth',1,'EdgeColor','r');
-% XX = 0:30:60;
-% YY = 0:31:62;
-% [XXX,YYY] = meshgrid(XX,YY);
-% mesh(XXX,YYY);
-[XX,YY] = size(img_k1);
-inc_x = floor(XX/4);
-inc_y = floor(YY/4);
+
+[XX,YY] = size(img_k3);
+inc_x = floor(XX/8);
+inc_y = floor(YY/8);
 for ii = 0:inc_x:XX
     for kk = 0:inc_y:YY
         position = [ii kk inc_x inc_y];
@@ -77,19 +74,18 @@ img_g3 = impyramid(img_g2, 'reduce');
 % imshow(img_k);
 % figure, imshow(img_k1);
 % figure, imshow(img_k2);
-figure, imshow(img_g1); % 62 60
-hold on;
-% position1 = [0 0 30 62];
+
+% figure, imshow(img_g3); % 49 47
+% hold on;
+% position1 = [1 1 46 24];
 % rectangle('Position',position1,'LineWidth',1,'EdgeColor','r');
-% position2 = [31 1 30 61];
+% position2 = [1 25 46 24];
 % rectangle('Position',position2,'LineWidth',1,'EdgeColor','r');
-% XX = 0:30:60;
-% YY = 0:31:62;
-% [XXX,YYY] = meshgrid(XX,YY);
-% mesh(XXX,YYY);
-[XX,YY] = size(img_g1);
-inc_x = floor(XX/4);
-inc_y = floor(YY/4);
+
+
+[XX,YY] = size(img_g3);
+inc_x = floor(XX/8);
+inc_y = floor(YY/8);
 for ii = 0:inc_x:XX
     for kk = 0:inc_y:YY
         position = [ii kk inc_x inc_y];

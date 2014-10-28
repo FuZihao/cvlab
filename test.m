@@ -1,7 +1,39 @@
-t = imread('./data/diving/diving-template.jpg');
-t = rgb2gray(t);
-t_res = resize_image(t);
-hog = hier_hog(t_res);
+imgs = dir('./data/archery/');
+img_num = length(imgs);
+data = zeros(86,1584);
+
+for i = 3:img_num
+    img = imread(strcat('./data/archery/', imgs(i).name));
+    disp(['processing the number ',num2str(i-2),' pic: ', imgs(i).name]);
+    img_gray = rgb2gray(img);
+    img_gray = denoise(img_gray);
+    img_gray = resize_image(img_gray);
+    tmp = hier_hog(img_gray);
+    data(i-2,:) = tmp;
+end
+disp('done!');
+save('data', 'data');
+
+ranking = zeros(1,85);
+for i = 1:img_num-3
+    cost = dist(data(11,:),data(i,:));
+    ranking(i) = cost;
+end
+
+[B,I] = sort(ranking);
+% figure;
+% for i =1:10
+%     img = imread(strcat('./data/boxing_1/', imgs(I(i)+2).name));
+%     subplot(2,5,i);
+%     imshow(img);
+%     axis image;
+% end
+
+% 
+% t = imread('./data/boxing_1/diving-template.jpg');
+% t = rgb2gray(t);
+% t_res = resize_image(t);
+% hog = hier_hog(t_res);
 
 
 % imshow(t_res);

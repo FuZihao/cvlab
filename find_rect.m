@@ -12,7 +12,7 @@ for j = 1 : row
        if (I(i,j) ~= 255)
            if (xmin == -1)
                xmin = j;
-               disp('found');
+%                disp('found');
            end
            xmax = j;
            break;
@@ -36,11 +36,16 @@ x = xmin;
 y = ymin;
 w = xmax - xmin + 1;
 h = ymax -ymin + 1;
-tmp = h;
-if h < w
-    h = floor(w*447/430);
+t_w = w;
+t_h = h;
+if h < w % 不同的图片情况不同
+    h = floor(w*479/348);
+    y = y - floor((h-t_h)/2);
 else
-    w = floor(h*430/447);
+    w = floor(h*348/479);
+    x = x - floor((w-t_w)/2);
 end
-y = y - floor((h-tmp + 1)/2);
+% y = y - floor((h-tmp + 1)/2);
 position = [x y w h];
+
+end
