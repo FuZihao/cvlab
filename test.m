@@ -1,6 +1,6 @@
 imgs = dir('./data/archery/');
 img_num = length(imgs);
-data = zeros(86,1584);
+data = zeros(84,1584);
 
 for i = 3:img_num
     img = imread(strcat('./data/archery/', imgs(i).name));
@@ -14,7 +14,7 @@ end
 disp('done!');
 save('data', 'data');
 
-ranking = zeros(1,85);
+ranking = zeros(1,83);
 for i = 1:img_num-3
     cost = dist(data(11,:),data(i,:));
     ranking(i) = cost;

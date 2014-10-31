@@ -5,7 +5,7 @@ im2 = zeros(position(4),position(3));
 im2 = 255 - im2;
 
 if position(2) < 0
-    im2(1-position(2):1-position(2)+col,1:position(1)) = ...
+    im2(1-position(2):col-position(2),1:position(3)) = ...
                                         im(1:col,position(1):position(1)+position(3)-1);
 elseif position(1) < 0
     error('error');
