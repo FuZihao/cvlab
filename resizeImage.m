@@ -1,6 +1,6 @@
-function [im_resized] = resize_image(im)
+function [im_resized] = resizeImage(im, tem_w, tem_h)
 [col, row] = size(im);
-position = find_rect(im);
+position = findRect(im, tem_w, tem_h);
 im2 = zeros(position(4),position(3));
 im2 = 255 - im2;
 

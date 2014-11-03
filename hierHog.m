@@ -1,4 +1,4 @@
-function [ features ] = hier_hog(im)
+function [ features ] = hierHog(im)
 %   Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -38,6 +38,6 @@ features_level4 = extractHOGFeatures(im,'CellSize',[floor(y4/8) floor(x4/8)],...
                                                 'NumBins',18,...
                                                 'UseSignedOrientation',true);
 % features = zeros(1,1584);
-features = 1000*[features_level11,features_level12,features_level2,features_level3,features_level4];
+features = 100*[features_level11,features_level12,features_level2,features_level3,features_level4];
 end
 
