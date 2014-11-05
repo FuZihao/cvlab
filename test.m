@@ -26,32 +26,11 @@ for i = 1:img_num-3
 end
 
 [B,I] = sort(ranking);
-% figure;
-% for i =1:10
-%     img = imread(strcat('./data/boxing_1/', imgs(I(i)+2).name));
-%     subplot(2,5,i);
-%     imshow(img);
-%     axis image;
-% end
+figure;
+for i =54:83
+    img = imread(strcat('./data/archery/', imgs(I(i)+2).name));
+%     position_vector = [0.1*(i-1), ];
+    subplot(5,6,i-53);
+    imshow(img);
+end
 
-% 
-% t = imread('./data/boxing_1/diving-template.jpg');
-% t = rgb2gray(t);
-% t_res = resize_image(t);
-% hog = hier_hog(t_res);
-
-
-% imshow(t_res);
-% 
-% t_res3 = impyramid(t_res, 'reduce');
-% t_res2 = impyramid(t_res3, 'reduce');
-% t_res1 = impyramid(t_res2, 'reduce');
-% 
-% imshow(t_res1);
-% [y1,x1] = size(t_res1);
-% [features,vil1]= extractHOGFeatures(t_res1,'CellSize',[y1 floor(x1/2)],...
-%                                                 'BlockSize',[1 2],...
-%                                                 'BlockOverlap',[0 0],...
-%                                                 'NumBins',18,...
-%                                                 'UseSignedOrientation',true);
-% plot(vil1);

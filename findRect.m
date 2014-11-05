@@ -37,15 +37,12 @@ h = ymax -ymin + 1;
 t_w = w;
 t_h = h;
 if h < w 
-%     h = floor(w*479/348);
     h = floor(w*tem_h / tem_w);
     y = y - floor((h-t_h)/2);
 else
-%     w = floor(h*348/479);
     w = floor(h*tem_w / tem_h);
     x = x - floor((w-t_w)/2);
 end
-% y = y - floor((h-tmp + 1)/2);
 position = [x y w h];
 
 end

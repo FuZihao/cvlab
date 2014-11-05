@@ -12,10 +12,5 @@ elseif position(1) < 0
 else
   im2 = im(position(2):position(2)+position(4)-1, position(1):position(1)+position(3)-1);  
 end
-% im_resized = im(position(2):position(2)+position(4)-1, position(1):position(1)+position(3)-1);
-% imshow(img);
-
-% position_k = find_rect(kk);
-% img_k = kk(position_k(2):position_k(2)+position_k(4)-1, position_k(1):position_k(1)+position_k(3));
 im_resized = im2;
 end
