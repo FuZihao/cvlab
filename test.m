@@ -1,36 +1,63 @@
-imgs = dir('./data/archery/');
-img_num = length(imgs);
-data = zeros(84,1584);
-template = imread('./data/archery/archery-template.jpg');
-tem = rgb2gray(template);
-tem = denoise(tem);
-[tem_w, tem_h] = findTemplateScale(tem);
+% 试验步骤分两部分，根据需要注释不需要的部分
+% 步骤一
+% modelDir = './dataset/test/model/';
+% drawingDir = './dataset/test/drawing/';
+% picName = 'golf-00.jpg';
+both = 1;
+if both
+%     clear;
+%     processed_dir = './dataset/skiing/';
+%     template_name = './dataset/skiing/skiing-00.jpg'; % 每个类别下的第一张图片为模板图
+%     modelDir = './dataset/test/model/';
+%     drawingDir = './dataset/test/drawing/';
+%     picName = 'gymnastics-00.jpg';
 
-for i = 3:img_num
-    img = imread(strcat('./data/archery/', imgs(i).name));
-    disp(['processing the number ',num2str(i-2),' pic: ', imgs(i).name]);
-    img_gray = rgb2gray(img);
-    img_gray = denoise(img_gray);
+    modelDir = './dataset/shooting/';
+    drawingDir = './dataset/shooting/';
+    picName = 'shooting-00.jpg';
+
+    templatePic = strcat(modelDir, picName);
+    %feature_dim = 1584;
+%     imgs = dir(processed_dir);
+    imgs = dir(drawingDir);
+    img_num = length(imgs);
+    template = imread(templatePic);
+    tem = rgb2gray(template);
+    tem = denoise(tem);
+    [tem_w, tem_h] = findTemplateScale(tem);
+    templateFeature = hierHog(tem);
+    feature_dim = size(templateFeature, 2);
+    data = zeros(img_num-2,feature_dim); % 减去 .和 ..文件
     
-    img_gray = resizeImage(img_gray, tem_w, tem_h);
-    tmp = hierHog(img_gray);
-    data(i-2,:) = tmp;
+    for i = 3:img_num %  跳过 . 和 .. 文件
+        img = imread(strcat(drawingDir, imgs(i).name));
+        disp(['processing the number ',num2str(i-2),' pic: ', imgs(i).name]);
+        img_gray = rgb2gray(img);
+        img_gray = denoise(img_gray);
+        
+        img_gray = resizeImage(img_gray, tem_w, tem_h);
+        tmp = hierHog(img_gray);
+        data(i-2,:) = tmp;
+    end
+    disp('done!');
+    % save('data', 'data');
 end
-disp('done!');
-save('data', 'data');
 
-ranking = zeros(1,83);
-for i = 1:img_num-3
-    cost = dist(data(84,:),data(i,:));
+% 步骤二
+% ranking = zeros(1,img_num-3); % 减去模板， . 和 .. 文件
+ranking = zeros(1, img_num-2); % 减去 . 和 .. 文件
+for i = 1:img_num-2
+%     cost = dist(data(1,:),data(i+1,:)); % 需要度量的图片从第二张开始
+    cost = dist(templateFeature, data(i, :));
     ranking(i) = cost;
 end
 
 [B,I] = sort(ranking);
 figure;
-for i =54:83
-    img = imread(strcat('./data/archery/', imgs(I(i)+2).name));
-%     position_vector = [0.1*(i-1), ];
-    subplot(5,6,i-53);
+for i =1:20
+    img = imread(strcat(drawingDir, imgs(I(i)+2).name)); % 跳过 . 和 .. 文件
+    subplot(4,5,i);
     imshow(img);
+    title(imgs(I(i)+2).name);
 end
 

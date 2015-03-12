@@ -25,7 +25,8 @@ rows=size(im,1);
 cols=size(im,2);
 Ix=im; %Basic Matrix assignment
 Iy=im; %Basic Matrix assignment
-
+% Ix = ones(cols, rows);
+% Iy = ones(cols, rows);
 % Gradients in X and Y direction. Iy is the gradient in X direction and Iy
 % is the gradient in Y direction
 for i=1:rows-2
@@ -38,7 +39,7 @@ end
 gauss=fspecial('gaussian',[8 8]); %% Initialized a gaussian filter with sigma=0.5 * block width.    
 
 angle=atand(Ix./Iy); % Matrix containing the angles of each edge gradient
-angle=imadd(angle,90); %Angles in range (0,180)
+angle=imadd(angle,90); % Angles in range (0,180)
 magnitude=sqrt(Ix.^2 + Iy.^2);
 
 figure,imshow(uint8(angle));
@@ -50,7 +51,7 @@ magnitude(isnan(magnitude))=0;
 
 feature=[]; %initialized the feature vector
 
-% Iterations for Blocks
+% Iterations for Blocks, BlockStride is 8*8
 for i = 0: rows/8 - 2
     for j= 0: cols/8 -2
         %disp([i,j])
@@ -74,7 +75,7 @@ for i = 0: rows/8 - 2
 %                       
                         alpha= angleA(p,q);
                         
-                        % Binning Process (Bi-Linear Interpolation)
+                        % Binning Process (Linear Interpolation)
                         if alpha>10 && alpha<=30
                             histr(1)=histr(1)+ magA(p,q)*(30-alpha)/20;
                             histr(2)=histr(2)+ magA(p,q)*(alpha-10)/20;
@@ -131,5 +132,5 @@ for z=1:length(feature)
     end
 end
 feature=feature/sqrt(norm(feature)^2+.001);        
-
-% toc;       
+end
+   

@@ -34,7 +34,7 @@ if(signed)
 else
     unsigned_ang=signed_ang;
     unsigned_ang(signed_ang(:)<0)=signed_ang(signed_ang(:)<0)+180;
-    ang=unsigned_ang;    
+    ang=unsigned_ang;
     total_Ang=180;
 end
 

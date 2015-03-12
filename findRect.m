@@ -1,6 +1,6 @@
-function [position] = findRect(I, tem_w, tem_h)
+function [position] = findRect(I)
 
-[col,row] = size(I);
+[col,row] = size(I); % [y,x] = size(I)
 xmin = -1;
 xmax = -1;
 ymin = -1;
@@ -8,7 +8,8 @@ ymax = -1;
 
 for j = 1 : row
    for i = 1 : col
-       if (I(i,j) ~= 255)
+%        if (I(i,j) ~= 255)
+        if I(i,j) < 180
            if (xmin == -1)
                xmin = j;
            end
@@ -20,7 +21,8 @@ end
 
 for i = 1 : col
    for j = 1 : row
-       if (I(i,j) ~= 255)
+%        if (I(i,j) ~= 255)
+        if I(i,j) < 180
            if (ymin == -1)
                ymin = i;
            end
@@ -33,16 +35,7 @@ end
 x = xmin;
 y = ymin;
 w = xmax - xmin + 1;
-h = ymax -ymin + 1;
-t_w = w;
-t_h = h;
-if h < w 
-    h = floor(w*tem_h / tem_w);
-    y = y - floor((h-t_h)/2);
-else
-    w = floor(h*tem_w / tem_h);
-    x = x - floor((w-t_w)/2);
-end
+h = ymax - ymin + 1;
 position = [x y w h];
 
 end

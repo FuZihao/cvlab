@@ -1,11 +1,19 @@
-template = imread('./data/archery/archery-template.jpg');
-% tem = rgb2gray(template);
-% tem = denoise(tem);
-% [tem_w, tem_h] = findTemplateScale(tem);
-% tem = resizeImage(tem, tem_w, tem_h);
-% drawRect(tem);
+% 测试一些显示功能
+
+template = imread('./data/archery/archery-03.jpg');
+tem = rgb2gray(template);
+tem = denoise(tem);
+[tem_w, tem_h] = findTemplateScale(tem);
+tem = resizeImage(tem, tem_w, tem_h);
+drawRect(tem);
 % 
-iml1 = imread('./data/archery/archery-03.jpg');
+% tem = im2bw(tem,0.9);
+% se = strel('disk',10);
+% erodedim = imdilate(tem,se);
+% imshow(tem);
+% figure;imshow(erodedim);
+
+% iml1 = imread('./data/archery/archery-03.jpg');
 % im11 = rgb2gray(im11);
 % im11 = denoise(im11);
 % im11 = resizeImage(im11, tem_w, tem_h);
