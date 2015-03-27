@@ -1,30 +1,35 @@
-%     clear;
-%     processed_dir = './dataset/baseball/';
-%     template_name = './dataset/baseball/baseball-00.jpg'; % 每个类别下的第一张图片为模板图
-%     feature_dim = 1584;
-%     imgs = dir(processed_dir);
-%     img_num = length(imgs);
-%     data = zeros(img_num,feature_dim);
-%     template = imread(template_name);
-%     tem = rgb2gray(template);
-%     tem = denoise(tem);
-%     [tem_w, tem_h] = findTemplateScale(tem);
-%     
-%      i = 3+3; % 跳过 . 和 .. 文件
-%         img = imread(strcat(processed_dir, imgs(i).name));
-%         disp(['processing the number ',num2str(i-2),' pic: ', imgs(i).name]);
-%         img_gray = rgb2gray(img);
-%         img_gray = denoise(img_gray);
-%         
-%         img_gray = resizeImage(img_gray, tem_w, tem_h);
-%         imshow(img_gray);
-%         tmp = hierHog(img_gray);
-%         data(i-2,:) = tmp;
-%     disp('done!');
-
-imgName = './dataset/archery/archery-07.jpg';
-im = imread(imgName);
-im = rgb2gray(im);
-im = denoise(im);
-% drawRect(im);
-feature = hierHog(im);
+clear;
+indexDirPrefix = './rankingsvm/data/index/'; % 测试索引所在的目录
+resultDir = './rankingsvm/data/result/';
+dirList = dir(indexDirPrefix);
+totaldir = length(dirList);
+totaldir = totaldir -2; % 除去 .和..
+errorPerDirSVM = [];
+errorPerDirCos = [];
+for i = 1:totaldir
+        currentDir = num2str(i);
+        indexDir = strcat(indexDirPrefix, currentDir, '/');
+        indexFile = strcat(indexDir, 'index.dat');
+        findex = fopen(indexFile, 'r');
+        predictionFileWithCos = strcat(resultDir, 'predictionCosine', currentDir);
+        
+        predictionFileWithSVM = strcat(resultDir, 'prediction', currentDir);
+        fprediction = fopen(predictionFileWithSVM, 'r');
+        misSVM = swappedpairs(findex, fprediction);
+        fclose(findex);
+        index = fopen(indexFile, 'r');
+        fpredictionCos = fopen(predictionFileWithCos, 'r');
+        misCos = swappedpairs(findex, fpredictionCos);
+        errorPerDirSVM = [errorPerDirSVM, misSVM];
+        errorPerDirCos = [errorPerDirCos, misCos];
+        
+        
+        fclose(fprediction);
+        fclose(fpredictionCos);
+end
+meanSVM = mean(errorPerDirSVM);
+meanCos = mean(errorPerDirCos);
+str_SVM = sprintf('meanSVM: %f ', meanSVM);
+str_Cos = sprintf('meanCos: %f', meanCos);
+disp(str_SVM);
+disp(str_Cos);

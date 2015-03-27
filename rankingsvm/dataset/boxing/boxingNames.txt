@@ -1,4 +1,4 @@
-44
+59
 boxing-01.jpg 3
 boxing-02.jpg 4
 boxing-03.jpg 4
@@ -36,10 +36,25 @@ boxing-34.jpg 2
 boxing-35.jpg 3
 boxing-36.jpg 3
 boxing-37.jpg 1
-boxing-38.jpg 1
+boxing-38.jpg 2
 boxing-39.jpg 2
 boxing-40.jpg 2
 boxing-41.jpg 1
 boxing-42.jpg 2
 boxing-43.jpg 4
 boxing-44.jpg 3
+boxing-45.jpg 1
+boxing-46.jpg 1
+boxing-47.jpg 1
+boxing-48.jpg 1
+boxing-49.jpg 1
+boxing-50.jpg 1
+boxing-51.jpg 1
+boxing-52.jpg 1
+boxing-53.jpg 1
+boxing-54.jpg 1
+boxing-55.jpg 1
+boxing-56.jpg 1
+boxing-57.jpg 1
+boxing-58.jpg 1
+boxing-59.jpg 5

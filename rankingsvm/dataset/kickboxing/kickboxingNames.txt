@@ -1,4 +1,4 @@
-50
+60
 kickboxing-01.jpg 5
 kickboxing-02.jpg 3
 kickboxing-03.jpg 3
@@ -49,3 +49,13 @@ kickboxing-47.jpg 1
 kickboxing-48.jpg 1
 kickboxing-49.jpg 2
 kickboxing-50.jpg 3
+kickboxing-51.jpg 1
+kickboxing-52.jpg 1
+kickboxing-53.jpg 1
+kickboxing-54.jpg 1
+kickboxing-55.jpg 1
+kickboxing-56.jpg 1
+kickboxing-57.jpg 1
+kickboxing-58.jpg 1
+kickboxing-59.jpg 1
+kickboxing-60.jpg 5

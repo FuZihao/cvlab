@@ -1,7 +1,8 @@
 % 读取测试集文件和预测文件，并生成重新排序后的图片名文件
-findex = fopen('./rankingsvm/data/test/index.dat', 'r');
-fprediction = fopen('./rankingsvm/data/test/prediction.dat', 'r');
-fresult = fopen('./rankingsvm/data/test/result.dat', 'w');
+clear;
+findex = fopen('./rankingsvm/data/index/1/index.dat', 'r');
+fprediction = fopen('./rankingsvm/data/result/prediction1', 'r');
+fresult = fopen('./rankingsvm/data/result/result', 'w');
 
 indexLine = fgets(findex);
 while ischar(indexLine)

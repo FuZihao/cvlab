@@ -1,15 +1,10 @@
 % 随机选取训练集和测试集
 dirfid =  fopen('./rankingsvm/dataset/dirnames.txt','r');
-% dirnum = 0;
+
 qid = 0;
 dirname = fgets(dirfid);
 while ischar(dirname)
-    %     dirname = fgets(dirfid);
-    
-    % modelDir = './rankingsvm/dataset/shooting/model/';
-    % drawingDir = './rankingsvm/dataset/shooting/drawing/';
-    % templateName = 'shooting-00.jpg';
-    
+
     prefix = './rankingsvm/dataset/';
     modelDir = strcat(prefix, dirname, '/model/');
     drawingDir = strcat(prefix, dirname, '/drawing/');
@@ -27,9 +22,10 @@ while ischar(dirname)
     templatePic = strcat(modelDir, templateName);
     template = imread(templatePic);
     tem = rgb2gray(template);
-    tem = denoise(tem);
+%     tem = denoise(tem); % 用不同的选项测试效果
     [tem_w, tem_h] = findTemplateScale(tem);
-    [templateFeature, ind1, ind2, ind3, ind4, ind5]= hierHog(tem);
+    temResized = resizeImage(tem, tem_w, tem_h);
+    [templateFeature, ind1, ind2, ind3, ind4, ind5]= hierHog(temResized);
     feature_dim = 5;
     
     allpics = [];
@@ -67,6 +63,8 @@ while ischar(dirname)
             disp(['processing the number ',num2str(ii),' training pic: ', picName]);
             img = imread(strcat(drawingDir, picName));
             img_gray = rgb2gray(img);
+            img_gray = resizeImage(img_gray, tem_w, tem_h); % 此处更改了
+            
             tmp = hierHog(img_gray);
             matchingFeature = extractFeature(templateFeature, tmp, ind1, ind2, ind3, ind4, ind5);
             traindata(ii,1) = rank;
@@ -84,6 +82,8 @@ while ischar(dirname)
             disp(['processing the number ',num2str(jj),' testing pic: ', picName]);
             img = imread(strcat(drawingDir, picName));
             img_gray = rgb2gray(img);
+            img_gray = resizeImage(img_gray, tem_w, tem_h); % 此处更改了
+            
             tmp = hierHog(img_gray);
             matchingFeature = extractFeature(templateFeature, tmp, ind1, ind2, ind3, ind4, ind5);
             testdata(jj,1) = rank;
@@ -93,7 +93,10 @@ while ischar(dirname)
         
         % 创建训练集文件夹
         subfolder = num2str(i);
-        mkdir('./rankingsvm/data/train/', subfolder);
+        dir = strcat('./rankingsvm/data/train/', subfolder);
+        if exist(dir, 'dir') == 0
+            mkdir('./rankingsvm/data/train/', subfolder);
+        end
         % 将数据矩阵写入文本，作为ranking svm 的输入
         trainPrefix =strcat('./rankingsvm/data/train/', subfolder, '/');
         trainFile = strcat(trainPrefix, dirname, 'Train.dat');
@@ -124,7 +127,10 @@ while ischar(dirname)
         end
         fclose(ftrain);
         
-        mkdir('./rankingsvm/data/test/', subfolder);
+        dir = strcat('./rankingsvm/data/test/', subfolder);
+        if exist(dir, 'dir') == 0
+            mkdir('./rankingsvm/data/test/', subfolder);
+        end
         testPrefix = strcat('./rankingsvm/data/test/', subfolder, '/');
         testFile = strcat(testPrefix, dirname, 'Test.dat');
         ftest = fopen(testFile, 'w');
@@ -154,7 +160,10 @@ while ischar(dirname)
         fclose(ftest);
         
         % 把索引，分值和图片名存入文本，作以后分析
-        mkdir('./rankingsvm/data/index/', subfolder);
+        dir = strcat('./rankingsvm/data/index/', subfolder);
+        if exist(dir, 'dir') == 0
+            mkdir('./rankingsvm/data/index/', subfolder);
+        end
         indexPrefix = strcat('./rankingsvm/data/index/', subfolder, '/');
         indexFile = strcat(indexPrefix, dirname, 'Index.dat');
         findex = fopen(indexFile, 'w');

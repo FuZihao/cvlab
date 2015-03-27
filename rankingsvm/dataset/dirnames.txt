@@ -1,2 +1,15 @@
 archery
+baseball
 boxing
+eurythmics
+fencing
+figureskating
+football
+golf
+gymnastics
+horseracing
+kickboxing
+shooting
+skiing
+swimming
+triathlon

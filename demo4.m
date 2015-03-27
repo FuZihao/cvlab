@@ -1,27 +1,26 @@
-% 使用不同的参数进行训练
-tradeoff = '-c ';
-tradeoffValue = [3, 2, 1];
-error = [];
-count = [];
-for iter = 1:3
-    tradeoffValue_c = num2str(tradeoffValue(iter));
-    tradeoffValue_c = [tradeoffValue_c, ' '];
-    trainParas = [tradeoff, tradeoffValue_c];
-    trainFile = 'rankingsvm\example3\train.dat rankingsvm\example3\model ';
-    trainEXE = 'rankingsvm\svm_rank_learn.exe ';
-    trainArgs = [trainEXE, trainParas, trainFile];
-    [trainsTatus, trainOutput]=dos(trainArgs);
-    
-    testFile = 'rankingsvm\example3\test.dat rankingsvm\example3\model rankingsvm\example3\predictions ';
-    testEXE = 'rankingsvm\svm_rank_classify.exe ';
-    testArgs = [testEXE, testFile];
-    [testTatus, testOutput] = dos(testArgs);
-    
-    fresult = fopen('stats.txt','r');
-    tline = fgets(fresult);
-    swappedpairs = sscanf(tline, '%d');
-    error = [error, swappedpairs];
-    count = [count, iter];
-    fclose(fresult);
+% 平均后的参数进行测试
+clear;
+totalIter = 1; % 测试
+
+for iter = 1:totalIter
+    totaldir = 1; % 测试
+    for i = 1:totaldir
+        resultDir = 'rankingsvm\tmp\';
+        testDir = strcat('rankingsvm\tmp\');
+        testFile = strcat(testDir, 'alltest.txt');
+        predictionFile = strcat(resultDir, 'prediction');
+        modelFile = strcat(resultDir,'meanModel.txt');
+        classifyParas = [testFile, ' ', modelFile, ' ', predictionFile];
+        testEXE = 'rankingsvm\svm_rank_classify.exe ';
+        testArgs = [testEXE, classifyParas];
+        
+        [testTatus, testOutput] = dos(testArgs);
+        
+        fresult = fopen('stats.txt','r');
+        tline = fgets(fresult);
+        swappedpairs = sscanf(tline, '%f');
+        output = sprintf('swappedpairs is: %f', swappedpairs);
+        disp(output);
+        fclose(fresult);
+    end
 end
-plot(count, error, 'b.');

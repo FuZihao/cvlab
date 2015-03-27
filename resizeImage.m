@@ -2,7 +2,7 @@ function [im_resized] = resizeImage(im, tem_w, tem_h)
 % [col, row] = size(im);
 % position = findRect(im, tem_w, tem_h);
 
-position = findRect(im);
+position = findRect(im); % 不用调用denoise了
 x_original = position(1);
 y_original = position(2);
 w_original = position(3);

@@ -7,7 +7,7 @@ function [ features, ind11, ind12, ind2, ind3, ind4 ] = hierHog(im)
 im3 = impyramid(im, 'reduce');
 im2 = impyramid(im3, 'reduce');
 im1 = impyramid(im2, 'reduce');
-approach = 0; % 0 is my defined approach
+approach = 0; % 0 is my approach
 if approach
     [y1,x1] = size(im1);
     features_level11 = extractHOGFeatures(im1,'CellSize',[y1 floor(x1/2)],...
@@ -50,9 +50,12 @@ else
 
     [y3,x3] = size(im3);
     features_level3 = myHOG(im3, [floor(y3/4) floor(x3/4)], [2 2], [0 0], 18, 1);
-    
+    % …ËblockOverlap
+    %features_level3 = myHOG(im3, [floor(y3/4) floor(x3/4)], [2 2], [1 1], 18, 1);
     [y4,x4] = size(im);
     features_level4 = myHOG(im, [floor(y4/8) floor(x4/8)],[2 2],[0 0], 18, 1);
+    % …ËblockOverlap
+    %features_level4 = myHOG(im, [floor(y4/8) floor(x4/8)],[2 2],[1 1], 18, 1);
 end
 features = [features_level11,features_level12,features_level2,features_level3,features_level4];
 ind11 = size(features_level11, 2);

@@ -23,9 +23,10 @@ if both
     img_num = length(imgs);
     template = imread(templatePic);
     tem = rgb2gray(template);
-    tem = denoise(tem);
+%     tem = denoise(tem);
     [tem_w, tem_h] = findTemplateScale(tem);
-    templateFeature = hierHog(tem);
+    temResized = resizeImage(tem, tem_w, tem_h);
+    templateFeature = hierHog(temResized);
     feature_dim = size(templateFeature, 2);
     data = zeros(img_num-2,feature_dim); % 减去 .和 ..文件
     
@@ -33,7 +34,7 @@ if both
         img = imread(strcat(drawingDir, imgs(i).name));
         disp(['processing the number ',num2str(i-2),' pic: ', imgs(i).name]);
         img_gray = rgb2gray(img);
-        img_gray = denoise(img_gray);
+%         img_gray = denoise(img_gray);
         
         img_gray = resizeImage(img_gray, tem_w, tem_h);
         tmp = hierHog(img_gray);
@@ -48,10 +49,12 @@ end
 ranking = zeros(1, img_num-2); % 减去 . 和 .. 文件
 for i = 1:img_num-2
 %     cost = dist(data(1,:),data(i+1,:)); % 需要度量的图片从第二张开始
-    cost = dist(templateFeature, data(i, :));
+    cost = dist2(templateFeature, data(i, :));
     ranking(i) = cost;
 end
-
+%     cost = dist(templateFeature, templateFeature);
+%     ranking(img_num-1) = cost;
+    
 [B,I] = sort(ranking);
 figure;
 for i =1:20

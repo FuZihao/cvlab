@@ -86,3 +86,33 @@
 
 % im = repmat([1,0;1,1], 3, 3);
 % feature = myHOG(im, [2,2], [2,2], [0,0], 18, 1);
+
+% iter1 = 1;
+% cost1 = 1;
+% iter2 = 2;
+% cost2 = 2;
+% plot(iter1, cost1, '-b.');
+% hold on;
+% plot(iter2, cost2, '-b.');
+% hold off;
+
+% iter = [];
+% iter = [iter, 1];
+% cost = [];
+% cost = [cost, 1];
+% plot(iter, cost, '-b.');
+% hold on;
+% iter = [iter, 2];
+% cost = [cost, 2];
+% plot(iter, cost, '-b.');
+% hold off;
+
+iter = [];
+cost = [];
+for i = 1:20
+    iter = [iter, i];
+    cost = [cost, i];
+    plot(iter, cost, '-b.');
+    hold on;
+end
+hold off;

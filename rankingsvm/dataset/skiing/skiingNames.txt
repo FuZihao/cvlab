@@ -1,4 +1,4 @@
-7
+8
 skiing-01.jpg 1
 skiing-02.jpg 4
 skiing-03.jpg 1
@@ -6,3 +6,4 @@ skiing-04.jpg 3
 skiing-05.jpg 4
 skiing-06.jpg 5
 skiing-07.jpg 2
+skiing-08.jpg 5

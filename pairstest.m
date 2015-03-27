@@ -20,18 +20,19 @@
 % % im = denoise(im);
 % drawRect(im);
 
-processDir = './dataset/archery/';
+processDir = './rankingsvm/dataset/shooting/drawing/';
 picNames = dir(processDir);
 picCount = length(picNames);
 % templateName = './dataset/archery/archery-00.jpg';
-templateName = strcat(processDir, 'archery-00.jpg');
+templateName = strcat(processDir, 'shooting-00.jpg');
 template = imread(templateName);
 template = rgb2gray(template);
 % temROI = findRect(template);
 [tem_w, tem_h] = findTemplateScale(template);
 temResized = resizeImage(template, tem_w, tem_h);
 [temAngle, temMag ] = im2gradient(temResized);
-drawRect(temAngle);
+% drawRect(temAngle);
+templateFeature = hierHog(temResized);
 
 % select a random picture for comparing with the template picture
 % while true
@@ -42,11 +43,14 @@ drawRect(temAngle);
 %         break;
 %     end
 % end
-imgName = './dataset/archery/archery-21.jpg';
+imgName = './rankingsvm/dataset/shooting/drawing/shooting-10.jpg';
 img = imread(imgName);
 img = rgb2gray(img);
-% im = denoise(im);
+% img = denoise(img);
 % imgROI = findRect(img);
 imgResized = resizeImage(img, tem_w, tem_h);
 [imgAngle, imgMag] = im2gradient(imgResized);
-drawRect(imgAngle);
+matchingFeature = hierHog(imgResized);
+cost = dist2(templateFeature, matchingFeature);
+disp(['the cost is: ', num2str(cost)]);
+% drawRect(imgAngle);
